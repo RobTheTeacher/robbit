@@ -1,26 +1,12 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  box-sizing: border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer components {
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  .button-primary { @apply block bg-red-500 text-2xl font-bold rounded-2xl text-white p-4}
+  .button-secondary { @apply block bg-red-500 text-xl font-bold rounded-2xl text-white p-2}
+  .button-tertiary { @apply block bg-black text-xl font-bold rounded-2xl text-white p-2}
 }
