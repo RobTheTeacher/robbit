@@ -17,7 +17,6 @@ export const getSinglePost = async (slug: string) => {
         .single()
 }
 
-
 export const getPostComments = async (postId: number) => {
      const supabase = createClient()
 

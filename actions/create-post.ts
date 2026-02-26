@@ -18,18 +18,19 @@ export const CreatePost = async (data: z.infer<typeof postSchema>) => {
     const slug = slugify(parsedData.title)
 
     let imageFile = data.image?.get('image')
-
+console.log("Image file: " , imageFile)
     if (typeof imageFile !== 'string') {
+        console.log("image url :")
         if (!(imageFile instanceof File) && imageFile != null) {
             throw new Error("Malformed image")
         }
-    } else {
+    } 
         if (imageFile === "undefined") {
             imageFile = null;
         }
 
         const imagePublicUrl = imageFile ? await UploadImage(imageFile) : imageFile
-
+console.log("image url :", imagePublicUrl)
         const { error } = await supabase.from('posts')
             .insert([{ user_id: user?.id, slug: slug, title: parsedData.title, content: parsedData.content, image: imagePublicUrl }])
             .throwOnError()
@@ -38,5 +39,5 @@ export const CreatePost = async (data: z.infer<typeof postSchema>) => {
 
         revalidatePath("/")
         redirect("/")
-    }
+    
 }
