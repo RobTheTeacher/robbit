@@ -8,31 +8,40 @@ import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
 
-const editPostSchema = postSchema.omit({ image: true }).extend({ image: z.instanceof(FileList).optional() })
-
-const EditForm = ({ defaultValues, postId }: { defaultValues: Pick<Tables<'posts'>, "title" | "content" | "image">, postId: number }) => {
+const EditForm = ({ initialValues, postId }: { initialValues: Pick<Tables<'posts'>, "title" | "content" | "image">, postId: number }) => {
+    const schemaWithImage =
+        postSchema.omit({ image: true })
+            .extend({ image: z.unknown().transform(value => { return value as (FileList) }).optional() })
+console.log("Initial Values", initialValues)
     const { register, handleSubmit } = useForm({
-        resolver: zodResolver(editPostSchema),
+        resolver: zodResolver(schemaWithImage),
         defaultValues: {
-            title: defaultValues.title,
-            content: defaultValues.content || undefined
+            title: initialValues.title,
+            content: initialValues.content || undefined,
+            image: initialValues.image
         }
     })
 
     const { mutate, error } = useMutation({
         mutationFn: EditPost
     })
+
     return (
         <form onSubmit={
             handleSubmit(values => {
-                const imageForm = new FormData();
-                if (values.image) {
+                let imageForm = undefined;
+
+                if (values.image?.length && typeof values.image !== 'string') {
+                    imageForm = new FormData()
                     imageForm.append('image', values.image[0])
                 }
                 mutate({
+                    postId, 
+                    userdata: {
                     title: values.title,
                     content: values.content,
                     image: imageForm
+                    }
                 })
             })} className="max-w-2xl mt-6 m-auto border-1 rounded-4xl p-4">
             <fieldset className="flex flex-col">
@@ -41,7 +50,7 @@ const EditForm = ({ defaultValues, postId }: { defaultValues: Pick<Tables<'posts
             </fieldset>
             <fieldset className="flex flex-col">
                 <label htmlFor="content" >Change image</label>
-                {defaultValues.image && <img src={defaultValues.image} height="auto" width="100%" />}
+                {initialValues.image && <img src={initialValues.image} height="auto" width="100%" />}
                 <input type="file" {...register("image")} id="image" />
             </fieldset>
             <fieldset className="flex flex-col">

@@ -6,11 +6,29 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { slugify } from "@/utils/slugify";
 
-const editPostSchema = postSchema.omit({ image: true })
-    .extend({ image: z.instanceof(FileList).optional() })
+import { uploadImage } from "@/utils/supabase/upload-image"
 
-export const EditPost = async ({ userdata, postId }: { userdata: z.infer<typeof editPostSchema>, postId: number }) => {
-    const parsedData = editPostSchema.parse(userdata)
+//const editPostSchema = postSchema.omit({ image: true })
+    //.extend({ image: z.instanceof(FileList).optional()})
+
+export const EditPost = async ({ userdata, postId }: { userdata: z.infer<typeof postSchema>, postId: number }) => {
+    const parsedData = postSchema.parse(userdata)
+
+       const imageFile = userdata.image?.get("image")
+    console.log("Image file,", imageFile, "Type: ", typeof imageFile)
+
+   let publicImageUrl;
+    if ((typeof imageFile !== 'string') && imageFile !== undefined) {
+        if (!(imageFile instanceof File) && imageFile !== null) {
+            throw new Error("Malformed Image file")
+        }
+
+        publicImageUrl = await uploadImage(imageFile!);
+    } else {
+        publicImageUrl = imageFile;
+    }
+
+
     const supabase = await createClient()
 
     const { data: { user } } = await supabase.auth.getUser();

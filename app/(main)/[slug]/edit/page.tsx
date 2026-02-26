@@ -15,7 +15,7 @@ const EditPostPage = async ({ params }: { params: { slug: string } }) => {
             {post &&
                 <div>
                     <h1>Edit Post Page</h1>
-                    <EditForm defaultValues={{title: post.title, content:post.content, image:post?.image}} postId={post.id} />
+                    <EditForm initialValues={{title: post.title, content:post.content, image:post?.image}} postId={post.id} />
                 </div>
             }
         </>
