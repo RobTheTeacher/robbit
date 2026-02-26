@@ -16,9 +16,11 @@ export const SignUp = async (userdata: z.infer<typeof signUpSchema>) => {
                 id:user.id, email: user.email, username:parsedData.username
             }]
         )
+
+        if (error) throw new Error('error: "UserName or email already exists" ')
     }
 
-    if(error) throw new Error('error: "User already exists" ')
+    if (error) throw new Error('error: "User already exists" ')
     
     redirect('/')
 }
