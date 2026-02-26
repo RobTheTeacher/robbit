@@ -11,13 +11,13 @@ const AccountLinks = async () => {
 
    
     return (
-        <>
+        <div className="order-2 md:order-3">
             {user ? <div className="flex gap-2"><LogOutButton />
                 <CreateButton />
             </div>
                 : <Link className="button-secondary" href="/auth/login">Log In</Link>
             }
-        </>
+        </div>
     )
 }
 

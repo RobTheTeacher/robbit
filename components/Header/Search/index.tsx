@@ -22,7 +22,7 @@ const Search = () => {
 
     return (
         <>
-            <div className="absolute w-[50%] left-[50%] -translate-x-1/2">
+            <div className="w-full mt-4 md:mt-0 md:absolute order-3 md:order-2 md:w-[50%] md:left-[50%] md:-translate-x-1/2">
                 <input onChange={handleChange} className="border-black border-1 rounded p-2 w-full" placeholder="Search posts ..." id="search" value={input} />
                 {data &&
                     <div onClick={() => setInput("")} className="bg-white w-full absolute top-[48px] p-2 flex flex-col border rounded top-6 z-10"> {data.map(item => <Link key={item.slug} href={`/${item.slug}`}>{item.title}</Link>)}</div>
