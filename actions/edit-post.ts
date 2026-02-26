@@ -43,7 +43,7 @@ export const EditPost = async ({ userdata, postId }: { userdata: z.infer<typeof 
 
     const updatedSlug = slugify(parsedData.title)
     const { data: updatedPost } = await supabase.from('posts')
-        .update({ ...parsedData, 'slug': updatedSlug}).eq('id', postId)
+        .update({ ...parsedData, image: publicImageUrl, 'slug': updatedSlug}).eq('id', postId)
         .select('slug').single().throwOnError()
 
 

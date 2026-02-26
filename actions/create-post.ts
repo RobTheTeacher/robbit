@@ -17,7 +17,7 @@ export const CreatePost = async (data: z.infer<typeof postSchema>) => {
     const parsedData = postSchema.parse(data)
     const slug = slugify(parsedData.title)
 
-    let imageFile = data.image.get('image')
+    let imageFile = data.image?.get('image')
 
     if (typeof imageFile !== 'string') {
         if (!(imageFile instanceof File) && imageFile != null) {
