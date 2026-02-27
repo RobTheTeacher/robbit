@@ -6,7 +6,7 @@
 
 @layer components {
 
-  .button-primary { @apply block bg-red-500 text-2xl font-bold rounded-2xl text-white p-4}
-  .button-secondary { @apply block bg-red-500 text-xl font-bold rounded-2xl text-white p-2}
-  .button-tertiary { @apply block bg-black text-xl font-bold rounded-2xl text-white p-2}
+  .button-primary { @apply block bg-red-500 text-2xl font-bold rounded-2xl text-white p-4 cursor-pointer}
+  .button-secondary { @apply block bg-red-500 text-xl font-bold rounded-2xl text-white p-2 cursor-pointer}
+  .button-tertiary { @apply block bg-black text-xl font-bold rounded-2xl text-white p-2 cursor-pointer}
 }

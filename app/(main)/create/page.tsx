@@ -34,20 +34,21 @@ const CreatePage = () => {
                     image: imageForm
                 })
             })} className="max-w-2xl mt-6 m-auto border-1 rounded-4xl p-4">
-                <h2 className="font-bold text-2xl">Create a Post!</h2>
-                <fieldset className="flex flex-col">
-                    <label htmlFor="title">Post Title</label>
+                <h2 className="font-bold text-4xl">Create a Post!</h2>
+                <fieldset className="flex flex-col mt-4">
+                    <label htmlFor="title" className="font-bold">What's the title of your post?</label>
                     <input id="title" className="border-1 p-4 my-2 rounded-xl" {...register("title")} placeholder="Title..." />
                 </fieldset>
                 <fieldset className="flex flex-col">
-                    <label htmlFor="content">Content(not required)</label>
+                    <label htmlFor="content" className="font-bold">Add content here (not required)</label>
                     <textarea id="content" className="border-1 p-4 my-2 rounded-xl w-full" {...register("content")} ></textarea>
                 </fieldset>
-                <fieldset className="flex flex-col">
-                    <label htmlFor="image">Image (not required)</label>
-                    <input type="file" id="image" className="" {...register("image")} />
+                <fieldset className="flex flex-col relative">
+                    <label htmlFor="image" className="font-bold">Want to have an Image (not required)?</label>
+                    <div className="button-secondary w-[140px] border-1 p-2 mt-2">Choose a file</div>
+                    <input type="file" id="image" className="absolute text-lg file:opacity-0 pl-14 text-1xl top-[42px]" {...register("image")} />
                 </fieldset>
-                <fieldset className="flex flex-col">
+                <fieldset className="flex flex-col mt-4">
                     <button className="button-secondary">Create post!</button>
                 </fieldset>
                 {error && <ErrorMessage error={error.message} />}

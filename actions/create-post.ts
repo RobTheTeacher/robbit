@@ -30,7 +30,7 @@ console.log("Image file: " , imageFile)
         }
 
         const imagePublicUrl = imageFile ? await UploadImage(imageFile) : imageFile
-console.log("image url :", imagePublicUrl)
+
         const { error } = await supabase.from('posts')
             .insert([{ user_id: user?.id, slug: slug, title: parsedData.title, content: parsedData.content, image: imagePublicUrl }])
             .throwOnError()
